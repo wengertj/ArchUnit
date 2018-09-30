@@ -20,7 +20,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.FluentIterable;
@@ -38,7 +40,7 @@ import static com.tngtech.archunit.base.Guava.toGuava;
 import static com.tngtech.archunit.core.domain.Dependency.Functions.GET_ORIGIN_CLASS;
 import static com.tngtech.archunit.core.domain.Dependency.Functions.GET_TARGET_CLASS;
 import static com.tngtech.archunit.core.domain.properties.HasName.Predicates.name;
-import static com.tngtech.archunit.lang.conditions.ArchConditions.onlyHaveDependenciesInAnyPackage;
+import static com.tngtech.archunit.lang.SimpleConditionEvent.violated;
 import static java.util.Collections.singleton;
 
 /**
@@ -136,15 +138,16 @@ public class PlantUmlArchCondition extends ArchCondition<JavaClass> {
             return;
         }
 
-        String[] allAllowedTargets = FluentIterable
-                .from(javaClassDiagramAssociation.getPackageIdentifiersFromComponentOf(item))
-                .append(javaClassDiagramAssociation.getTargetPackageIdentifiers(item))
-                .toArray(String.class);
-
-        ArchCondition<JavaClass> delegate = onlyHaveDependenciesInAnyPackage(allAllowedTargets)
-                .ignoreDependency(ignorePredicate);
-
-        delegate.check(item, events);
+        PlantUmlComponent component = javaClassDiagramAssociation.getComponentOf(item);
+        Set<String> allowedSimpleNameTargets = new HashSet<>();
+        for (PlantUmlComponent dependency : component.getDependencies()) {
+            allowedSimpleNameTargets.add(dependency.getComponentName().asString());
+        }
+        for (Dependency dependency : item.getDirectDependenciesFromSelf()) {
+            if (!ignorePredicate.apply(dependency) && !allowedSimpleNameTargets.contains(dependency.getTargetClass().getSimpleName())) {
+                events.add(violated(item, dependency.getDescription()));
+            }
+        }
     }
 
     private boolean allDependenciesAreIgnored(JavaClass item) {

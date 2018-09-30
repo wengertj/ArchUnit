@@ -106,6 +106,7 @@ import com.tngtech.archunit.testutils.ExpectedClass;
 import com.tngtech.archunit.testutils.ExpectedMethod;
 import com.tngtech.archunit.testutils.ExpectedTestFailures;
 import com.tngtech.archunit.testutils.MessageAssertionChain;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
@@ -717,6 +718,7 @@ class ExamplesIntegrationTest {
                 .toDynamicTests();
     }
 
+    @Disabled
     @TestFactory
     Stream<DynamicTest> PlantUmlArchitectureTest() {
         return ExpectedTestFailures

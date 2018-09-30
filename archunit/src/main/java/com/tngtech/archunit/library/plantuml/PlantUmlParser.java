@@ -108,13 +108,7 @@ class PlantUmlParser {
         for (String stereotype : matcher.matchStereoTypes()) {
             stereotypes.add(new Stereotype(stereotype));
         }
-
-        ImmutableSet<Stereotype> result = stereotypes.build();
-        if (result.isEmpty()) {
-            throw new IllegalDiagramException(String.format("Components must include at least one stereotype"
-                    + " specifying the package identifier(<<..>>), but component '%s' does not", componentName.asString()));
-        }
-        return result;
+        return stereotypes.build();
     }
 
     private ParsedDependency createNewDependency(PlantUmlComponents plantUmlComponents, String input) {
