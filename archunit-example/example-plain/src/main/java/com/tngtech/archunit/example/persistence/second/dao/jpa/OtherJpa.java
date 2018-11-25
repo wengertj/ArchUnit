@@ -5,6 +5,7 @@ import javax.persistence.PersistenceContext;
 
 import com.tngtech.archunit.example.persistence.second.dao.OtherDao;
 import com.tngtech.archunit.example.persistence.second.dao.domain.OtherPersistentObject;
+import com.tngtech.archunit.example.security.Secured;
 
 public class OtherJpa implements OtherDao {
     @PersistenceContext
@@ -16,6 +17,7 @@ public class OtherJpa implements OtherDao {
     }
 
     @Override
+    @Secured
     public EntityManager getEntityManager() {
         return entityManager;
     }
