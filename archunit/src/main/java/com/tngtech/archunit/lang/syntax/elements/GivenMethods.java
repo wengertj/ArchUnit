@@ -17,15 +17,13 @@ package com.tngtech.archunit.lang.syntax.elements;
 
 import com.tngtech.archunit.PublicAPI;
 import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.lang.ArchCondition;
-import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.core.domain.JavaMethod;
 
 import static com.tngtech.archunit.PublicAPI.Usage.ACCESS;
 
-public interface GivenObjects<T> {
-    @PublicAPI(usage = ACCESS)
-    ArchRule should(ArchCondition<? super T> condition);
+public interface GivenMethods extends GivenCodeUnits<JavaMethod> {
 
+    @Override
     @PublicAPI(usage = ACCESS)
-    GivenConjunction<T> that(DescribedPredicate<? super T> predicate);
+    GivenMethodsConjunction that(DescribedPredicate<? super JavaMethod> predicate);
 }

@@ -25,7 +25,7 @@ import static com.tngtech.archunit.PublicAPI.Usage.ACCESS;
 public interface GivenClassesConjunction extends GivenConjunction<JavaClass> {
     @Override
     @PublicAPI(usage = ACCESS)
-    ClassesShouldConjunction should(ArchCondition<JavaClass> condition);
+    ClassesShouldConjunction should(ArchCondition<? super JavaClass> condition);
 
     @PublicAPI(usage = ACCESS)
     ClassesShould should();

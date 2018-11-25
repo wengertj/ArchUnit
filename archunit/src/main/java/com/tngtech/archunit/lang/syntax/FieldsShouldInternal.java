@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tngtech.archunit.lang.syntax.elements;
+package com.tngtech.archunit.lang.syntax;
 
-import com.tngtech.archunit.PublicAPI;
-import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.base.Function;
+import com.tngtech.archunit.core.domain.JavaField;
 import com.tngtech.archunit.lang.ArchCondition;
-import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.lang.ClassesTransformer;
+import com.tngtech.archunit.lang.Priority;
 
-import static com.tngtech.archunit.PublicAPI.Usage.ACCESS;
+class FieldsShouldInternal extends ObjectsShouldInternal<JavaField> {
 
-public interface GivenObjects<T> {
-    @PublicAPI(usage = ACCESS)
-    ArchRule should(ArchCondition<? super T> condition);
+    FieldsShouldInternal(
+            ClassesTransformer<? extends JavaField> classesTransformer,
+            Priority priority,
+            ArchCondition<JavaField> condition,
+            Function<ArchCondition<JavaField>, ArchCondition<JavaField>> prepareCondition) {
 
-    @PublicAPI(usage = ACCESS)
-    GivenConjunction<T> that(DescribedPredicate<? super T> predicate);
+        super(classesTransformer, priority, condition, prepareCondition);
+    }
 }
