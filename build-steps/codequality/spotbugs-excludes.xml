@@ -61,41 +61,11 @@
     </Match>
     <!-- exclude these fields, as they are marked as unread, but they are read by Gson through the annotations -->
     <Match>
-        <Class name="com.tngtech.archunit.visual.JsonAccess"/>
-        <Or>
-            <Field name="target"/>
-            <Field name="startCodeUnit"/>
-            <Field name="targetCodeElement"/>
-        </Or>
-        <Bug code="UrF"/>
-    </Match>
-    <Match>
-        <Class name="com.tngtech.archunit.visual.JsonJavaClass"/>
-        <Or>
-            <Field name="superclass"/>
-        </Or>
-        <Bug code="UrF"/>
-    </Match>
-    <!--FIXME: remove this exclusion-->
-    <Match>
-        <Class name="com.tngtech.archunit.visual.JsonJavaElement"/>
-        <Or>
-            <Field name="anonymousImplementation"/>
-        </Or>
-        <Bug code="UrF"/>
-    </Match>
-    <Match>
-        <Class name="com.tngtech.archunit.visual.JsonViolation"/>
-        <Or>
-            <Field name="origin"/>
-            <Field name="target"/>
-        </Or>
-        <Bug code="UrF"/>
-    </Match>
-    <Match>
         <Class name="com.tngtech.archunit.visual.JsonElement"/>
         <Or>
             <Field name="type"/>
+            <Field name="name"/>
+            <Field name="fullname"/>
         </Or>
         <Bug code="UrF"/>
     </Match>
