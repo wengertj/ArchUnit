@@ -46,22 +46,9 @@
         <Method name="readProperties"/>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
     </Match>
-    <!-- exclude these methods from the bug-check OBL_UNSATISFIED_OBLIGATION, as a false positive warning would be
-    created (because of using of try-with-resources-statement in Java 9)-->
+    <!-- exclude these fields, as they are marked as unread, but they are read by Gson via reflection -->
     <Match>
-        <Class name="com.tngtech.archunit.visual.Visualizer"/>
-        <Or>
-            <Method name="exportJson"
-                    params="com.tngtech.archunit.core.domain.JavaClasses, java.io.File"
-                    returns="void"/>
-            <Method name="exportViolations"
-                    params="java.io.File, java.lang.String, com.tngtech.archunit.lang.EvaluationResult" returns="void"/>
-        </Or>
-        <Bug code="OBL"/>
-    </Match>
-    <!-- exclude these fields, as they are marked as unread, but they are read by Gson through the annotations -->
-    <Match>
-        <Class name="com.tngtech.archunit.visual.JsonElement"/>
+        <Class name="com.tngtech.archunit.htmlvisualization.JsonElement"/>
         <Or>
             <Field name="type"/>
             <Field name="name"/>
@@ -70,7 +57,7 @@
         <Bug code="UrF"/>
     </Match>
     <Match>
-        <Class name="com.tngtech.archunit.visual.JsonEvaluationResult"/>
+        <Class name="com.tngtech.archunit.htmlvisualization.JsonEvaluationResult"/>
         <Or>
             <Field name="rule"/>
             <Field name="violations"/>
@@ -78,15 +65,7 @@
         <Bug code="UrF"/>
     </Match>
     <Match>
-        <Class name="com.tngtech.archunit.visual.JsonViolation"/>
-        <Or>
-            <Field name="origin"/>
-            <Field name="target"/>
-        </Or>
-        <Bug code="UrF"/>
-    </Match>
-    <Match>
-        <Class name="com.tngtech.archunit.visual.JsonExport"/>
+        <Class name="com.tngtech.archunit.htmlvisualization.JsonExport"/>
         <Or>
             <Field name="root"/>
             <Field name="dependencies"/>
@@ -94,7 +73,7 @@
         <Bug code="UrF"/>
     </Match>
     <Match>
-        <Class name="com.tngtech.archunit.visual.JsonJavaDependency"/>
+        <Class name="com.tngtech.archunit.htmlvisualization.JsonJavaDependency"/>
         <Or>
             <Field name="description"/>
             <Field name="originClass"/>
